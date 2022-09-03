@@ -5,6 +5,9 @@ const port = process.env.PORT || 5000;
 const userRouter = require("./routes/v1/user.routes.js");
 
 // user api endPoints
+app.get("/", async (req, res) => {
+    res.status(200).send({ message: "Welcome to user-sever" });
+});
 app.use("/api/v1/user", userRouter);
 
 // Handle unknown routes
