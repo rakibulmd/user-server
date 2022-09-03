@@ -4,8 +4,12 @@ const {
     getAllUser,
     saveUser,
     updateUser,
+    updateBulkUser,
 } = require("../../controllers/user.controller");
 const { saveUserValidation } = require("../../middlewares/saveUserValidation");
+const {
+    updateUsersValidation,
+} = require("../../middlewares/updateUsersValidation");
 const {
     updateUserValidation,
 } = require("../../middlewares/updateUserValidation");
@@ -16,5 +20,6 @@ router.route("/random").get(getRandomUser);
 router.route("/all").get(getAllUser);
 router.route("/save").post(saveUserValidation, saveUser);
 router.route("/update").patch(updateUserValidation, updateUser);
+router.route("/bulk-update").patch(updateUsersValidation, updateBulkUser);
 
 module.exports = router;

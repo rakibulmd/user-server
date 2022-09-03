@@ -49,3 +49,22 @@ module.exports.updateUser = async (req, res) => {
         }
     });
 };
+
+module.exports.updateBulkUser = async (req, res) => {
+    const updateUsers = req.body;
+    const users = JSON.parse(fs.readFileSync("user.json"));
+    for (let updateUser of updateUsers) {
+        let userIndex = users.findIndex((obj) => obj.id == updateUser.id);
+        const props = Object.keys(updateUser);
+        for (let prop of props) {
+            users[userIndex][prop] = updateUser[prop];
+        }
+    }
+    fs.writeFile("user.json", JSON.stringify(users), (err) => {
+        if (err) {
+            res.send("failed to save the data");
+        } else {
+            res.send(`updated ${updateUsers.length} users`);
+        }
+    });
+};
