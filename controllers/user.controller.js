@@ -68,3 +68,17 @@ module.exports.updateBulkUser = async (req, res) => {
         }
     });
 };
+
+module.exports.deleteUser = (req, res) => {
+    const id = req?.body?.id || req?.query?.id || req?.params?.id;
+    const users = JSON.parse(fs.readFileSync("user.json"));
+    let userIndex = users.findIndex((obj) => obj.id == id);
+    users.splice(userIndex, 1);
+    fs.writeFile("user.json", JSON.stringify(users), (err) => {
+        if (err) {
+            res.send("failed to delete!");
+        } else {
+            res.send(`deleted ${users[userIndex].id}`);
+        }
+    });
+};
