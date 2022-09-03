@@ -2,9 +2,10 @@ const express = require("express");
 const app = express();
 app.use(express.json());
 const port = process.env.PORT || 5000;
-const userRouter = require("./routes/v69/user.routes.js");
+const userRouter = require("./routes/v1/user.routes.js");
 
-app.use("/api/v69/user", userRouter);
+// user api endPoints
+app.use("/api/v1/user", userRouter);
 
 // Handle unknown routes
 app.all("*", (req, res) => {

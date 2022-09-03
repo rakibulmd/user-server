@@ -20,8 +20,23 @@ const {
 
 const router = express.Router();
 
+/**
+ * @api {get} get user data
+ * @apiDescription get single user data by Math.random method
+ * @apiPersmission open
+ * @apiSuccess {object} single user object
+ */
 router.route("/random").get(getRandomUser);
+
+/**
+ * @api {get} get all user data
+ * @apiDescription Get all data in users
+ * @apiPersmission open
+ * @apiParam {number{N}} [limit=n] limit the users data count
+ * @apiSuccess {object[]} all the data
+ */
 router.route("/all").get(getAllUser);
+
 router.route("/save").post(saveUserValidation, saveUser);
 router.route("/update").patch(updateUserValidation, updateUser);
 router.route("/bulk-update").patch(updateUsersValidation, updateBulkUser);
