@@ -1,3 +1,3 @@
-module.exports.getUser = (req, res) => {
+module.exports.getRandomUser = (req, res) => {
     res.send("single user data found");
 };
