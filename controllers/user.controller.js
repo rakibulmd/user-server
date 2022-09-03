@@ -78,7 +78,7 @@ module.exports.deleteUser = (req, res) => {
         if (err) {
             res.send("failed to delete!");
         } else {
-            res.send(`deleted ${users[userIndex].id}`);
+            res.send(`deleted ${id}`);
         }
     });
 };

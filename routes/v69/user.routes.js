@@ -7,6 +7,9 @@ const {
     updateBulkUser,
     deleteUser,
 } = require("../../controllers/user.controller");
+const {
+    deleteUserValidation,
+} = require("../../middlewares/deleteUserValidation");
 const { saveUserValidation } = require("../../middlewares/saveUserValidation");
 const {
     updateUsersValidation,
@@ -22,6 +25,6 @@ router.route("/all").get(getAllUser);
 router.route("/save").post(saveUserValidation, saveUser);
 router.route("/update").patch(updateUserValidation, updateUser);
 router.route("/bulk-update").patch(updateUsersValidation, updateBulkUser);
-router.route("/delete").delete(deleteUser);
+router.route("/delete").delete(deleteUserValidation, deleteUser);
 
 module.exports = router;
