@@ -15,9 +15,6 @@ app.all("*", (req, res) => {
 // Handle unhandled rejection
 process.on("unhandledRejection", (error) => {
     console.log(error);
-    app.close(() => {
-        process.exit(1);
-    });
 });
 
 app.listen(port, () => {

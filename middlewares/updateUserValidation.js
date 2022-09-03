@@ -16,12 +16,12 @@ module.exports.updateUserValidation = function (req, res, next) {
                 "photoUrl",
             ].includes(prop);
             if (!match) {
-                res.send("invalid property name!");
+                res.status(409).send({ message: "Invalid property name" });
                 return;
             }
         }
         next();
     } else {
-        res.send("the user doesn't exist!");
+        res.status(404).send({ message: "The user doesn't exist!" });
     }
 };

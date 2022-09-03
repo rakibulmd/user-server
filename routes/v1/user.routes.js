@@ -1,4 +1,6 @@
 const express = require("express");
+const router = express.Router();
+
 const {
     getRandomUser,
     getAllUser,
@@ -18,8 +20,6 @@ const {
     updateUserValidation,
 } = require("../../middlewares/updateUserValidation");
 
-const router = express.Router();
-
 /**
  * @api {get} get user data
  * @apiDescription get single user data by Math.random method
@@ -36,7 +36,6 @@ router.route("/random").get(getRandomUser);
  * @apiSuccess {object[]} all the data
  */
 router.route("/all").get(getAllUser);
-
 router.route("/save").post(saveUserValidation, saveUser);
 router.route("/update").patch(updateUserValidation, updateUser);
 router.route("/bulk-update").patch(updateUsersValidation, updateBulkUser);

@@ -9,7 +9,7 @@ module.exports.updateUsersValidation = function (req, res, next) {
         for (let userObject of usersObject) {
             const exist = users.find((user) => user.id == userObject.id);
             if (!exist) {
-                res.send("user not found to update!");
+                res.status(404).send({ message: "user not found to update!" });
                 return;
             }
             const props = Object.keys(userObject);
@@ -23,13 +23,11 @@ module.exports.updateUsersValidation = function (req, res, next) {
                     "photoUrl",
                 ].includes(prop);
                 if (!match) {
-                    res.send("invalid property name!");
+                    res.status(409).send({ message: "Invalid property name" });
                     return;
                 }
             }
         }
     }
-    console.log(mismatchCount);
-
     next();
 };

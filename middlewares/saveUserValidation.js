@@ -4,8 +4,23 @@ module.exports.saveUserValidation = function (req, res, next) {
     const userObject = req.body;
     const users = JSON.parse(fs.readFileSync("user.json"));
     const exist = users.find((user) => user.id === userObject.id);
+    const props = Object.keys(userObject);
+    for (let prop of props) {
+        const match = [
+            "id",
+            "name",
+            "gender",
+            "address",
+            "contact",
+            "photoUrl",
+        ].includes(prop);
+        if (!match) {
+            res.status(409).send({ message: "Invalid property name" });
+            return;
+        }
+    }
     if (exist) {
-        res.send("this id already exist!");
+        res.status(409).send({ message: "this id already exist!" });
     } else if (typeof userObject !== "object") {
         res.send("data is not object");
     } else if (
@@ -16,7 +31,9 @@ module.exports.saveUserValidation = function (req, res, next) {
         userObject.address === undefined ||
         userObject.photoUrl === undefined
     ) {
-        res.send("not a valid object");
+        res.status(409).send({
+            message: "Object is not valid! Missing property!",
+        });
     } else {
         next();
     }
