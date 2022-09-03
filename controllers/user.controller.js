@@ -18,6 +18,7 @@ module.exports.getAllUser = (req, res) => {
     res.send(users);
 };
 
+//save user
 module.exports.saveUser = async (req, res) => {
     const newUser = req.body;
     const users = JSON.parse(fs.readFileSync("user.json"));
@@ -27,6 +28,24 @@ module.exports.saveUser = async (req, res) => {
             res.send("failed to save the data");
         } else {
             res.send(users);
+        }
+    });
+};
+
+// update user
+module.exports.updateUser = async (req, res) => {
+    const updateUser = req.body;
+    const users = JSON.parse(fs.readFileSync("user.json"));
+    let userIndex = users.findIndex((obj) => obj.id == updateUser.id);
+    const props = Object.keys(updateUser);
+    for (let prop of props) {
+        users[userIndex][prop] = updateUser[prop];
+    }
+    fs.writeFile("user.json", JSON.stringify(users), (err) => {
+        if (err) {
+            res.send("failed to save the data");
+        } else {
+            res.send(users[userIndex]);
         }
     });
 };

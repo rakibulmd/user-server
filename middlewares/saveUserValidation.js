@@ -1,6 +1,12 @@
+var fs = require("fs");
+
 module.exports.saveUserValidation = function (req, res, next) {
     const userObject = req.body;
-    if (typeof userObject !== "object") {
+    const users = JSON.parse(fs.readFileSync("user.json"));
+    const exist = users.find((user) => user.id === userObject.id);
+    if (exist) {
+        res.send("this id already exist!");
+    } else if (typeof userObject !== "object") {
         res.send("data is not object");
     } else if (
         userObject.id === undefined ||
